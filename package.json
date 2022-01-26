@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/moorebrendanr/discord-syntax-tree#readme",
   "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
     "canvas": "^2.8.0",
+    "discord-api-types": "^0.26.1",
     "discord.js": "^13.4.0"
   }
 }

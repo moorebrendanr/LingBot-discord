@@ -12,26 +12,6 @@ intents.add([Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]);
 const client = new Client({ intents: intents });
 const PREFIX = "!";
 
-function validateTokens(tokens) {
-    if (tokens.length < 3) throw 'Phrase too short';
-    if (tokens[0].type !== Tokenizer.TokenType.BRACKET_OPEN ||
-        tokens[tokens.length - 1].type !== Tokenizer.TokenType.BRACKET_CLOSE)
-        throw 'Phrase must start with [ and end with ]';
-    const brackets = countOpenBrackets(tokens);
-    if (brackets > 0) throw brackets + ' bracket(s) open [';
-    if (brackets < 0) throw Math.abs(brackets) + ' too many closed bracket(s) ]';
-    return null;
-}
-
-function countOpenBrackets(tokens) {
-    let o = 0;
-    for (const token of tokens) {
-        if (token.type === Tokenizer.TokenType.BRACKET_OPEN) ++o;
-        if (token.type === Tokenizer.TokenType.BRACKET_CLOSE) --o;
-    }
-    return o;
-}
-
 client.on("messageCreate", function (message) {
     if (message.author.bot) return;
     if (!message.content.startsWith(PREFIX)) return;
@@ -61,6 +41,16 @@ client.on("ready", function () {
     });
 });
 
+client.on("interactionCreate", async interaction => {
+    if (!interaction.isCommand()) return;
+
+    const { commandName } = interaction;
+
+    if (commandName === "echo") {
+        await interaction.reply(interaction.options.getString("input"));
+    }
+});
+
 function sendTree(message, phrase) {
     const tree = new Tree.Tree();
     tree.setSubscript(false); // Turn off subscript numbers
@@ -68,7 +58,7 @@ function sendTree(message, phrase) {
 
     try {
         const tokens = Tokenizer.tokenize(phrase);
-        validateTokens(tokens);
+        Tokenizer.validateTokens(tokens);
 
         const syntaxTree = Parser.parse(tokens);
         tree.draw(syntaxTree);

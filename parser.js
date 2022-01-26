@@ -1,6 +1,6 @@
 // jsSyntaxTree - A syntax tree graph generator
 // (c)2020 Andre Eisenbach <andre@ironcreek.net>
-// Modified 12/27/2021 by Brendan Moore <moorebrendanr@gmail.com>
+// Modified 01/26/2022 by Brendan Moore <moorebrendanr@gmail.com>
 
 'use strict';
 
@@ -22,6 +22,15 @@ exports.parse = function (tokens) {
     root.values.push(node);
   }
   return root;
+}
+
+exports.countOpenBrackets = function (tokens) {
+  let o = 0;
+  for (const token of tokens) {
+    if (token.type === Tokenizer.TokenType.BRACKET_OPEN) ++o;
+    if (token.type === Tokenizer.TokenType.BRACKET_CLOSE) --o;
+  }
+  return o;
 }
 
 function parseNode(tokens, current) {

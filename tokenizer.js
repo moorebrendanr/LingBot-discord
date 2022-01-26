@@ -1,8 +1,10 @@
 // jsSyntaxTree - A syntax tree graph generator
 // (c)2020 Andre Eisenbach <andre@ironcreek.net>
-// Modified 12/27/2021 by Brendan Moore <moorebrendanr@gmail.com>
+// Modified 01/26/2022 by Brendan Moore <moorebrendanr@gmail.com>
 
 'use strict';
+
+const Parser = require("./parser");
 
 const TokenType = {
   BRACKET_OPEN: 'BRACKET_OPEN',
@@ -49,6 +51,17 @@ exports.tokenize = function (input) {
   }
 
   return tokens;
+}
+
+exports.validateTokens = function(tokens) {
+  if (tokens.length < 3) throw 'Phrase too short';
+  if (tokens[0].type !== TokenType.BRACKET_OPEN ||
+      tokens[tokens.length - 1].type !== TokenType.BRACKET_CLOSE)
+    throw 'Phrase must start with [ and end with ]';
+  const brackets = Parser.countOpenBrackets(tokens);
+  if (brackets > 0) throw brackets + ' bracket(s) open [';
+  if (brackets < 0) throw Math.abs(brackets) + ' too many closed bracket(s) ]';
+  return null;
 }
 
 function isWhitespace(ch) {
