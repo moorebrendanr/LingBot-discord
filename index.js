@@ -22,24 +22,21 @@ client.on("messageCreate", function (message) {
     const args = commandBody.split(' ');
     const command = args.shift().toLowerCase();
 
-    switch (command) {
-        case "tree":
-            const phrase = args.join(' ');
-            sendTree(message, phrase);
-            break;
-        case "help":
-            sendHelp(message);
-            break;
+    const commands = ["tree", "help", "info"];
+    if (commands.includes(command)) {
+        message.channel.send(`This bot now uses slash commands. Please use /${command}`);
     }
 });
 
 client.on("ready", function () {
     client.user.setPresence({
         status: "online",
-        activity: {
-            name: "!help for info",
+        activities: [
+            {
+            name: "/help for info",
             type: "PLAYING"
-        }
+            }
+        ]
     });
 });
 
