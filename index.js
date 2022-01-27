@@ -6,6 +6,8 @@ const Tree = require("./tree");
 const { createCanvas } = require('canvas');
 const canvas = createCanvas(100, 100);
 const strings = require("./strings.json");
+const helpCmd = require("./commands/help");
+const treeCmd = require("./commands/tree-cmd");
 
 const intents = new Intents();
 intents.add([Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]);
@@ -46,8 +48,13 @@ client.on("interactionCreate", async interaction => {
 
     const { commandName } = interaction;
 
-    if (commandName === "echo") {
-        await interaction.reply(interaction.options.getString("input"));
+    switch (commandName) {
+        case "help":
+            await helpCmd.sendHelp(interaction);
+            break;
+        case "tree":
+            await treeCmd.sendTree(interaction);
+            break;
     }
 });
 
