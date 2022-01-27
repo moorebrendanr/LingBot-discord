@@ -55,31 +55,4 @@ client.on("interactionCreate", async interaction => {
     }
 });
 
-function sendTree(message, phrase) {
-    const tree = new Tree.Tree();
-    tree.setSubscript(false); // Turn off subscript numbers
-    tree.setCanvas(canvas);
-
-    try {
-        const tokens = Tokenizer.tokenize(phrase);
-        Tokenizer.validateTokens(tokens);
-
-        const syntaxTree = Parser.parse(tokens);
-        tree.draw(syntaxTree);
-        const imgBuffer = tree.download();
-        const attachment = new MessageAttachment(imgBuffer, "syntax_tree.png");
-        message.channel.send({ files: [attachment] });
-    } catch (err) {
-        message.channel.send(err);
-    }
-}
-
-function sendHelp(message) {
-    const embed = new MessageEmbed()
-        .setTitle("How I work")
-        .setColor("#47bdff")
-        .setDescription(strings.helpMessage);
-    message.channel.send({ embeds: [embed] });
-}
-
 client.login(config.BOT_TOKEN);
