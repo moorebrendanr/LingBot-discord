@@ -1,4 +1,4 @@
-const { Client, Intents, MessageAttachment, MessageEmbed, SnowflakeUtil } = require("discord.js");
+const { Client, Intents } = require("discord.js");
 const config = require("./config");
 const helpCmd = require("./commands/help");
 const treeCmd = require("./commands/tree-cmd");
