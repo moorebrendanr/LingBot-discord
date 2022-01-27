@@ -1,3 +1,4 @@
 {
-  "helpMessage": "Hello, I'm a bot that creates syntax trees. I may have more functions in the future. In the meantime, you can call me with the `!tree` command, followed by the correct bracket notation of a syntax tree. I'm based André Eisenbach's jsSyntaxTree, so if you need help figuring out how to build a tree, check his website at https://www.ironcreek.net/syntaxtree/."
+  "infoMessage": "Hello, I'm a bot that creates syntax trees. I may have more functions in the future. I'm based André Eisenbach's jsSyntaxTree, so if you need help figuring out how to build a tree, check his website at https://www.ironcreek.net/syntaxtree/.\n\nI am designed by Smashhoof#5917, and the source code can be found here: https://github.com/moorebrendanr/LingBot-discord",
+  "helpMessage": "**/help:** Show this help message.\n**/info:** About this bot.\n**/tree:** Create a syntax tree."
 }

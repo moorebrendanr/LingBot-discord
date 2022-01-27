@@ -3,16 +3,16 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const strings = require("../strings.json");
 
 const data = new SlashCommandBuilder()
-    .setName('help')
-    .setDescription('How to use this bot')
+    .setName('info')
+    .setDescription('About this bot')
 
 exports.data = data;
 
-exports.sendHelp = async function(interaction) {
+exports.sendInfo = async function(interaction) {
     const embed = new MessageEmbed()
-        .setTitle("List of commands")
+        .setTitle("About me")
         .setColor("#47bdff")
-        .setDescription(strings.helpMessage);
+        .setDescription(strings.infoMessage);
     await interaction.reply({
         embeds: [embed]
     });

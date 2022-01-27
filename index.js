@@ -1,13 +1,8 @@
 const { Client, Intents, MessageAttachment, MessageEmbed, SnowflakeUtil } = require("discord.js");
 const config = require("./config");
-const Parser = require("./parser");
-const Tokenizer = require("./tokenizer");
-const Tree = require("./tree");
-const { createCanvas } = require('canvas');
-const canvas = createCanvas(100, 100);
-const strings = require("./strings.json");
 const helpCmd = require("./commands/help");
 const treeCmd = require("./commands/tree-cmd");
+const infoCmd = require("./commands/info");
 
 const intents = new Intents();
 intents.add([Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]);
@@ -33,8 +28,8 @@ client.on("ready", function () {
         status: "online",
         activities: [
             {
-            name: "/help for info",
-            type: "PLAYING"
+                name: "/help for info",
+                type: "PLAYING"
             }
         ]
     });
@@ -48,6 +43,9 @@ client.on("interactionCreate", async interaction => {
     switch (commandName) {
         case "help":
             await helpCmd.sendHelp(interaction);
+            break;
+        case "info":
+            await infoCmd.sendInfo(interaction);
             break;
         case "tree":
             await treeCmd.sendTree(interaction);
